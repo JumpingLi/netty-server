@@ -1,0 +1,38 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+server:
+  port: 9090
+  servlet:
+    context-path: /
+
+#datasource
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    name: main
+    url: jdbc:mysql://127.0.0.1:3306/jumping_database?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false&useAffectedRows=true
+    username: root
+    password: Champion@2018
+    hikari:
+      maximum-pool-size: 50
+      minimum-idle: 10
+      leak-detection-threshold: 16000
+      connection-timeout: 30000
+      connection-test-query: select 1 from dual
+      connection-init-sql: select 1 from dual
+      max-lifetime: 1800000
+      pool-name: DatebookHikariCP
+      idle-timeout: 30000
+      auto-commit: true
+
+netty:
+  port: 12345
+  maxThreads: 1024
+  max_frame_length: 65535
