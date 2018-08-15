@@ -5,6 +5,7 @@ import com.iflytek.netty.dispatcher.RequestDispatcher;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +18,7 @@ import javax.annotation.Resource;
 @Slf4j
 @Component
 @Sharable
-public class ServerChannelHandler extends ChannelHandlerAdapter {
+public class ServerChannelHandler extends ChannelInboundHandlerAdapter {
 
     @Resource
     private RequestDispatcher dispatcher;

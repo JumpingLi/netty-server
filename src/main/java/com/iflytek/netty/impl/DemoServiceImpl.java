@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.UUID;
 
 /**
  * @author: JiangPing Li
@@ -18,7 +19,6 @@ import java.io.FileOutputStream;
 @Service
 public class DemoServiceImpl implements DemoService {
 
-//    private static Map<String,String> fileIdCacheMap = Maps.newConcurrentMap();
     @Override
     public int sum(int numberA, int numberB) {
         return numberA + numberB;
@@ -30,28 +30,30 @@ public class DemoServiceImpl implements DemoService {
     }
 
     @Override
-    public TransportResponse fileTransport(TransportRequest req) throws Exception {
-//        log.debug("---Server Received: " + req.getId() + ", " + req.getName() + ", " + req.getMessage());
-        // 进行文件资源的还原
-        byte[] attachment = GzipUtils.ungzip(req.getAttachment());
-        // 获取保存目录
-        String path = System.getProperty("user.dir") + File.separatorChar + "receive"
-                + File.separatorChar + req.getName();
-//        log.debug("---文件保存路径：" + path);
-        FileOutputStream fos;
-        if (req.getAppend()){
-            // 进行文件的追加保存
-            fos = new FileOutputStream(path,true);
-        }else{
-            // 进行文件的一次性保存
-            fos = new FileOutputStream(path);
-        }
-        fos.write(attachment);
-        fos.close();
+    public TransportResponse fileTransport(TransportRequest req) {
+        log.debug("---Server Received: " + req.getId() + ", " + req.getName() + ", " + req.getMessage());
         TransportResponse resp = new TransportResponse();
+        resp.setCode(200);
         resp.setId("文件大小:" + req.getId());
         resp.setName("传输文件名:" + req.getName());
         resp.setMessage("响应消息: " + req.getMessage());
+        String[] nameArray = req.getName().split("\\.");
+//        try{
+//            byte[] attachment = GzipUtils.ungzip(req.getAttachment());
+//            String path = System.getProperty("user.dir") + File.separatorChar + "receive"
+//                    + File.separatorChar + nameArray[0] + "_" + UUID.randomUUID() + "." + nameArray[1];
+//            FileOutputStream fos;
+//            if (req.getAppend()){
+//                fos = new FileOutputStream(path,true);
+//            }else{
+//                fos = new FileOutputStream(path);
+//            }
+//            fos.write(attachment);
+//            fos.close();
+//        }catch (Exception e){
+//            resp.setCode(500);
+//            resp.setMessage("服务端发生异常 :" + e.getMessage());
+//        }
         return resp;
     }
 }
