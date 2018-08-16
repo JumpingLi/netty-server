@@ -1,3 +1,4 @@
+//import tk.mybatis.mapper.generator.MapperPlugin
 buildscript {
     ext {
         springBootVersion = '2.0.4.RELEASE'
@@ -36,6 +37,28 @@ repositories {
     maven { url "https://repo.spring.io/milestone" }
 }
 
+mbg {
+    overwrite = true
+    consoleable = true
+    jdbc {
+        driver = "com.mysql.jdbc.Driver"
+        url = "jdbc:mysql://127.0.0.1:3306/jumping_database?characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;useSSL=false"
+        username = "root"
+        password = "Champion@2018"
+    }
+    xml {
+        resourcesProject = "src/main/java"
+//        mapperPlugin = MapperPlugin.class
+//        mapperMapper = "com.iflytek.netty.dao.mapper.BaseMapper"
+        mapperPackage = "com.iflytek.netty.dao.mapper"
+        modelPackage = "com.iflytek.netty.dao.domain.entity"
+        xmlPackage = "com.iflytek.netty.dao.mapper"
+        tableName = "comment"
+        objectName = "Comment"
+//        mapperSuffix = "Mapper"
+    }
+}
+
 configurations {
     all*.exclude group: "commons-logging", module: "commons-logging"
     all*.exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
@@ -61,7 +84,9 @@ dependencies {
     compile('com.zaxxer:HikariCP:3.2.0')
 
     //
-    compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2')
-    compile ("org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}")
+//    compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2')
+//    compile ("org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}")
     compile 'tk.mybatis:mapper-spring-boot-starter:2.0.0'
+    compile group: 'com.github.pagehelper', name: 'pagehelper-spring-boot-starter', version: '1.2.5'
+
 }

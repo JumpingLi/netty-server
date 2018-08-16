@@ -1,3 +1,4 @@
+#actuator
 management:
   endpoints:
     web:
@@ -6,11 +7,11 @@ management:
   endpoint:
     health:
       show-details: always
+#server
 server:
   port: 9090
   servlet:
     context-path: /
-
 #datasource
 spring:
   datasource:
@@ -31,8 +32,26 @@ spring:
       pool-name: DatebookHikariCP
       idle-timeout: 30000
       auto-commit: true
-
+#netty
 netty:
   port: 12345
   maxThreads: 1024
   max_frame_length: 65535
+#mybatis
+mybatis:
+#  config-location: classpath:mybatis-config.xml
+  mapper-locations: classpath*:com/iflytek/netty/dao/mapper/*.xml
+  type-aliases-package: com.iflytek.netty.domain.entity
+#mapper
+mapper:
+  mappers: com.iflytek.netty.dao.BaseMapper
+  not-empty: false
+  identity: MYSQL
+#pagehelper
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+debug: true
+

@@ -1,4 +1,4 @@
-package com.iflytek.netty.impl;
+package com.iflytek.netty.rpc.service.impl;
 
 import com.iflytek.netty.rpc.entity.TransportRequest;
 import com.iflytek.netty.rpc.entity.TransportResponse;
