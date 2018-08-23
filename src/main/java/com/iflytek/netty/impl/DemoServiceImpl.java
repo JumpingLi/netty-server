@@ -31,12 +31,12 @@ public class DemoServiceImpl implements DemoService {
 
     @Override
     public TransportResponse fileTransport(TransportRequest req) throws Exception {
-//        log.debug("---Server Received: " + req.getId() + ", " + req.getName() + ", " + req.getMessage());
+        log.debug("---Server Received: " + req.getId() + ", " + req.getName() + ", " + req.getMessage());
         // 进行文件资源的还原
         byte[] attachment = GzipUtils.ungzip(req.getAttachment());
         // 获取保存目录
         String path = System.getProperty("user.dir") + File.separatorChar + "receive"
-                + File.separatorChar + req.getName();
+                + File.separatorChar + req.getId() + "-" + req.getName();
 //        log.debug("---文件保存路径：" + path);
         FileOutputStream fos;
         if (req.getAppend()){
@@ -49,9 +49,9 @@ public class DemoServiceImpl implements DemoService {
         fos.write(attachment);
         fos.close();
         TransportResponse resp = new TransportResponse();
-        resp.setId("文件大小:" + req.getId());
-        resp.setName("传输文件名:" + req.getName());
-        resp.setMessage("响应消息: " + req.getMessage());
+        resp.setId("文件id: " + req.getId());
+        resp.setName("文件名: " + req.getName());
+        resp.setMessage(req.getMessage());
         return resp;
     }
 }
